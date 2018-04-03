@@ -14,3 +14,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/statements', 'StatementController@showAllStatements');
+$router->get('/statements/{id}', 'StatementController@showOneStatement');
+$router->post('/statements', 'StatementController@create');
+$router->put('/statements/{id}', 'StatementController@update');
+$router->delete('/statements/{id}', 'StatementController@delete');

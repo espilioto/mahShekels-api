@@ -13,7 +13,7 @@ class Statement extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'account_id', 'amount', 'notes', 'category_id', 'isLoan',
+        'date', 'account_id', 'amount', 'notes', 'category_id', 'isLoan', 'user_id',
     ];
 
     public function account()
@@ -23,5 +23,9 @@ class Statement extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

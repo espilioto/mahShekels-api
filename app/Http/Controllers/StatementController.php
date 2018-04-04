@@ -9,12 +9,12 @@ class StatementController extends Controller
 {
     public function showAllStatements()
     {
-        return response()->json(Statement::with('account', 'category')->get());
+        return response()->json(Statement::with('account', 'category', 'user')->get());
     }
 
     public function showOneStatement($id)
     {
-        return response()->json(Statement::where('id', $id)->with('account', 'category')->get());
+        return response()->json(Statement::where('id', $id)->with('account', 'category', 'user')->get());
     }
 
     public function create(Request $request)
@@ -26,6 +26,7 @@ class StatementController extends Controller
             'notes' => 'required',
             'category_id' => 'required',
             'isLoan' => 'required',
+            'user_id' => 'required',
         ]);
 
         $statement = Statement::create($request->all());

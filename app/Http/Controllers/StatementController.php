@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class StatementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function showAllStatements()
     {
         return response()->json(Statement::with('account', 'category', 'user')->get());

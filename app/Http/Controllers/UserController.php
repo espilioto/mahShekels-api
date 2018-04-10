@@ -22,7 +22,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
         ]);
 

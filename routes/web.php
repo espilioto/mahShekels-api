@@ -20,3 +20,7 @@ $router->get('/statements/{id}', 'StatementController@showOneStatement');
 $router->post('/statements', 'StatementController@create');
 $router->put('/statements/{id}', 'StatementController@update');
 $router->delete('/statements/{id}', 'StatementController@delete');
+
+$router->post('/register', 'UserController@register');
+$router->get('/login', 'UserController@login');
+$router->get('/resetToken/{id}', 'UserController@resetToken');

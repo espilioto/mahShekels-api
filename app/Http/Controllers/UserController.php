@@ -21,6 +21,11 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
         if ($request->has('email') && $request->has('password')) {
             $user = new User;
             $user->email = $request->input('email');

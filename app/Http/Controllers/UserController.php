@@ -39,4 +39,27 @@ class UserController extends Controller
             return response()->json(['gief email and pass m8']);
         }
     }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($request->has('email') && $request->has('password')) {
+            $user = User::where("email", "=", $request->input('email'))
+                ->where("password", "=", sha1($this->salt . $request->input('password')))
+                ->first();
+            if ($user) {
+                $user->api_token = str_random(60);
+                $user->save();
+                return $user->api_token;
+            } else {
+                return response()->json(['status' => 'rip'], 401);
+            }
+        } else {
+            return response()->json(['status' => 'rip'], 401);
+        }
+    }
 }

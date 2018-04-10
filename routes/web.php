@@ -23,4 +23,3 @@ $router->delete('/statements/{id}', 'StatementController@delete');
 
 $router->post('/register', 'UserController@register');
 $router->get('/login', 'UserController@login');
-$router->get('/resetToken/{id}', 'UserController@resetToken');

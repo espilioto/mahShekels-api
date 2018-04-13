@@ -31,7 +31,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password', 'api_token',
     ];
 
-    public function statement()
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+    public function statements()
     {
         return $this->hasMany(Statement::class);
     }

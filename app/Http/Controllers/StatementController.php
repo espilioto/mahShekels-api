@@ -16,12 +16,7 @@ class StatementController extends Controller
     {
         return response()->json(Statement::with('account', 'category', 'user')->get());
     }
-
-    public function showOneStatement($id)
-    {
-        return response()->json(Statement::where('id', $id)->with('account', 'category', 'user')->get());
-    }
-
+    
     public function create(Request $request)
     {
         $this->validate($request, [

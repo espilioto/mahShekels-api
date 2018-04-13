@@ -16,6 +16,15 @@ class Category extends Model
         'name',
     ];
 
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'user_id',
+    ];
+
     public function statement()
     {
         return $this->hasOne(Statement::class);

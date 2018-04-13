@@ -14,7 +14,9 @@ class StatementController extends Controller
 
     public function show()
     {
-        return response()->json(Statement::with('account', 'category', 'user')->get());
+        $user = app('auth')->guard()->user();
+
+        return response()->json($user->statements()->with('account', 'category')->get());
     }
 
     public function create(Request $request)
@@ -26,25 +28,54 @@ class StatementController extends Controller
             'notes' => 'required',
             'category_id' => 'required',
             'isLoan' => 'required',
-            'user_id' => 'required',
         ]);
 
-        $statement = Statement::create($request->all());
+        $user = app('auth')->guard()->user();
 
-        return response()->json($statement, 201);
+        if ($request->has('account_id') && $request->has('category_id')) {
+            $statement = new Statement;
+            $statement->date = $request->input('date');
+            $statement->account_id = $request->input('account_id');
+            $statement->amount = $request->input('amount');
+            $statement->notes = $request->input('notes');
+            $statement->category_id = $request->input('category_id');
+            $statement->isLoan = $request->input('isLoan');
+            $statement->user_id = $user->id;
+            $statement->save();
+
+            return response()->json($statement, 201);
+        } else {
+            return response()->json(['body error']);
+        }
+
+        // return response()->json($statement, 201);
     }
 
     public function update($id, Request $request)
     {
+        $user = app('auth')->guard()->user();
         $statement = Statement::findOrFail($id);
-        $statement->update($request->all());
 
-        return response()->json($statement, 200);
+        if ($statement->user_id == $user->id) {
+            $statement->update($request->all());
+
+            return response()->json($statement, 200);
+        } else {
+            return response()->json(['error', 401]);
+        }
     }
 
     public function delete($id)
     {
-        Statement::findOrFail($id)->delete();
-        return response('Deleted Successfully', 200);
+        $user = app('auth')->guard()->user();
+        $statement = Statement::findOrFail($id);
+
+        if ($statement->user_id == $user->id) {
+            $statement->delete();
+
+            return response('Deleted Successfully', 200);
+        } else {
+            return response('HOW CAN YOU SLAP', 401);
+        }
     }
 }

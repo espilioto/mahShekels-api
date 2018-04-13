@@ -15,7 +15,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/statements', 'StatementController@showAllStatements');
+$router->get('/accounts', 'AccountController@show');
+$router->post('/accounts', 'AccountController@create');
+$router->put('/accounts/{id}', 'AccountController@update');
+$router->delete('/accounts/{id}', 'AccountController@delete');
+
+$router->get('/categories', 'CategoryController@show');
+$router->post('/categories', 'CategoryController@create');
+$router->put('/categories/{id}', 'CategoryController@update');
+$router->delete('/categories/{id}', 'CategoryController@delete');
+
+$router->get('/statements', 'StatementController@show');
 $router->post('/statements', 'StatementController@create');
 $router->put('/statements/{id}', 'StatementController@update');
 $router->delete('/statements/{id}', 'StatementController@delete');

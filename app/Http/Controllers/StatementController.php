@@ -12,11 +12,11 @@ class StatementController extends Controller
         $this->middleware('auth');
     }
 
-    public function showAllStatements()
+    public function show()
     {
         return response()->json(Statement::with('account', 'category', 'user')->get());
     }
-    
+
     public function create(Request $request)
     {
         $this->validate($request, [

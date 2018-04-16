@@ -35,10 +35,8 @@ class AccountController extends Controller
 
             return response()->json($account, 201);
         } else {
-            return response()->json(['body error']);
+            return response()->json(['status' => 'Body error'], 400);
         }
-
-        // return response()->json($statement, 201);
     }
 
     public function update($id, Request $request)
@@ -51,7 +49,7 @@ class AccountController extends Controller
 
             return response()->json($account, 200);
         } else {
-            return response()->json('HOW CAN YOU SLAP', 401);
+            return response()->json(['status' => 'HOW CAN YOU SLAP'], 401);
         }
     }
 
@@ -63,9 +61,9 @@ class AccountController extends Controller
         if ($account->user_id == $user->id) {
             $account->delete();
 
-            return response('Deleted Successfully', 200);
+            return response()->json(['status' => 'Deleted Successfully'], 200);
         } else {
-            return response('HOW CAN YOU SLAP', 401);
+            return response()->json(['status' => 'HOW CAN YOU SLAP'], 401);
         }
     }
 }

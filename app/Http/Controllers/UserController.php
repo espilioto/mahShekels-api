@@ -36,7 +36,7 @@ class UserController extends Controller
 
             return response()->json($user->api_token);
         } else {
-            return response()->json(['gief email and pass m8']);
+            return response()->json(['status' => 'gief email and pass m8'], 400);
         }
     }
 
@@ -59,7 +59,7 @@ class UserController extends Controller
                 return response()->json(['status' => 'rip'], 401);
             }
         } else {
-            return response()->json(['status' => 'rip'], 401);
+            return response()->json(['status' => 'rip'], 400);
         }
     }
 }

@@ -45,10 +45,8 @@ class StatementController extends Controller
 
             return response()->json($statement, 201);
         } else {
-            return response()->json(['body error']);
+            return response()->json(['status' => 'Body error'], 400);
         }
-
-        // return response()->json($statement, 201);
     }
 
     public function update($id, Request $request)
@@ -61,7 +59,7 @@ class StatementController extends Controller
 
             return response()->json($statement, 200);
         } else {
-            return response()->json(['error', 401]);
+            return response()->json(['status' => 'HOW CAN YOU SLAP'], 401);
         }
     }
 
@@ -73,9 +71,9 @@ class StatementController extends Controller
         if ($statement->user_id == $user->id) {
             $statement->delete();
 
-            return response('Deleted Successfully', 200);
+            return response()->json(['status' => 'Deleted Successfully'], 200);
         } else {
-            return response('HOW CAN YOU SLAP', 401);
+            return response()->json(['status' => 'HOW CAN YOU SLAP'], 401);
         }
     }
 }

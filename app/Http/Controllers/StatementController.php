@@ -16,7 +16,7 @@ class StatementController extends Controller
     {
         $user = app('auth')->guard()->user();
 
-        return response()->json($user->statements()->with('account', 'category')->get());
+        return response()->json($user->statements()->with('account', 'category')->orderBy('id', 'desc')->get());
     }
 
     public function create(Request $request)
